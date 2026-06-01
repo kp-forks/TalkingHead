@@ -1936,15 +1936,17 @@ async function grokSendMessage(node,msgs) {
     // Message body
     const body = {
       model: cfg('ai-model'),
+      reasoning: { effort: "none" },
       messages: msgs.map( x => {
         const {role,content,name} = x;
         return (name ? {role,content,name} : {role,content});
       }),
       temperature: cfg('ai-grok-temperature'),
-      presence_penalty: cfg('ai-grok-presence'),
-      frequency_penalty: cfg('ai-grok-frequency'),
-      max_tokens: cfg('ai-grok-output'),
-      stream: true
+      // presence_penalty: cfg('ai-grok-presence'),
+      // frequency_penalty: cfg('ai-grok-frequency'),
+      max_output_tokens: cfg('ai-grok-output'),
+      stream: true,
+      store: false
     };
     const stop = cfg('ai-grok-stop');
     if ( stop && stop.length ) {
@@ -4796,7 +4798,7 @@ document.addEventListener('DOMContentLoaded', async function(e) {
               <div class="rowWrap">
                 <div class="command selected" data-item="ai-model" data-type="option" data-ai-model="gpt-4.1-mini">GPT-4.1-mini</div>
                 <div class="command" data-item="ai-model" data-type="option" data-ai-model="gpt-4.1">GPT-4.1</div>
-                <div class="command" data-item="ai-model" data-type="option" data-ai-model="grok-3">Grok-3</div>
+                <div class="command" data-item="ai-model" data-type="option" data-ai-model="grok-4.3">Grok-4.3</div>
                 <div class="command" data-item="ai-model" data-type="option" data-ai-model="gemini-2.5-flash">Gemini-2.5-flash</div>
                 <div class="command" data-item="ai-model" data-type="option" data-ai-model="llama">Llama</div>
               </div>
